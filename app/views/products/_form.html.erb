@@ -1,0 +1,12 @@
+<%= simple_form_for @product do |f| %>
+  <%= f.input  :title , label: "Name of the product: " %>
+  <%= f.input  :description, label: "Description of the product: " %>
+  <%= select_tag(:category_id, options_for_select(@categories), :promt => "Category")%>
+  <%= f.input  :price, as: :integer , label: "Price of the product: " %>
+  <%= f.input  :discount, label: "Discount for the product" %>
+  <%= f.input  :image, as: :file,label: "Please upload image of the product" %>
+  <%= f.input  :available,as: :boolean, label: "Availability of the product: " %>
+  <%= f.button :submit , label: "Add to catalog"%>
+  
+
+<% end %>

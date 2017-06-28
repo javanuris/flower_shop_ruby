@@ -1,0 +1,57 @@
+<div class="jumbotron">
+	<h1><%= @product.title %></h1>
+			<%= image_tag @product.image.url(:medium) %>
+
+	<% if @product.discount.to_i > 0 %>
+		<h4>Price with discount: <%= Integer(@product.price)-Integer(@product.discount) %></h4>
+	<%else%>
+		<h4>Price: <%= @product.price %></h4>
+	<% end %>
+	
+
+	
+	<p><%= @product.description %></p>
+	
+	<% if @product.available == true %>
+		<div class="alert alert-success" role="alert">
+  			<strong>Product is available in stock</strong> 
+		</div>
+	<% else %>
+		<div class="alert alert-danger" role="alert">
+  			<strong>Product is out of stock</strong>
+		</div>
+	<% end %>
+	     <h2>Avarage Rating</h2>
+	     
+    <div class = "average-review-rating" data-score =<%=@average_review%>></div>
+    <p><span class="number-of-reviews">Всего <%= @product.reviews.count %> отзывов</span></p>
+	<button type="button" class="btn"><%= link_to "Back", root_path %></button>
+	<button type="button" class="btn"><%= link_to "Edit", edit_product_path(@product) %></button>
+	<button type="button" class="btn btn-danger"><%= link_to "Delete", product_path(@product), method: :delete, data: {confirm: "Are you sure? This will be undone"} %></button>
+
+     <%= render @product.reviews%>
+    <div>
+    	<%=link_to "Add Review" ,new_product_review_path(@product)%>
+    </div>
+	</div>
+	
+	<script>
+	$('.review-rating').raty({
+		readOnly: true,
+		score: function() {
+			return $(this).attr('data-score');
+		},
+		path: '/assets/'
+	});
+</script>
+
+
+<script>
+	$('.average-review-rating').raty({
+		readOnly: true,
+		path: '/assets/',
+		score: function() {
+			return $(this).attr('data-score')
+		}
+	});
+</script>
